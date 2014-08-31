@@ -1,30 +1,40 @@
 package io.github.podshot.Podlauncher.updater;
 
-import java.awt.FlowLayout;
+import java.awt.Font;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JProgressBar;
+import javax.swing.SwingConstants;
 
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 
-		String newPodLauncherFile = "";
+		String newPodLauncherFile = "http://podshot.github.io/PodLauncher/update/PodLauncher.jar";
 		String filename = "PodLauncher.jar";
 
 		JFrame frame = new JFrame();
+		frame.getContentPane().setLayout(null);
 		JProgressBar pBar = new JProgressBar(0,100);
-		pBar.setSize(50, 50);
+		pBar.setLocation(119, 75);
+		pBar.setSize(146, 17);
 		pBar.setValue(0);
 		pBar.setStringPainted(true);
-		frame.add(pBar);
+		frame.getContentPane().add(pBar);
+		
+		JLabel lblUpdatingPodlauncher = new JLabel("Updating PodLauncher");
+		lblUpdatingPodlauncher.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblUpdatingPodlauncher.setHorizontalAlignment(SwingConstants.CENTER);
+		lblUpdatingPodlauncher.setBounds(119, 50, 146, 14);
+		frame.getContentPane().add(lblUpdatingPodlauncher);
 		frame.setVisible(true);
-		frame.setLayout(new FlowLayout());
 		frame.setSize(400, 200);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -49,6 +59,9 @@ public class Main {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		Runtime rt = Runtime.getRuntime();
+		rt.exec("java -jar PodLauncher.jar -updated");
+		System.exit(0);
 	}
-
 }
