@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -26,7 +27,7 @@ public class Main {
 			}
 		}
 
-		String newPodLauncherFile = "https://dl.dropbox.com/s/xr0ksjzutaapx7g/Test-PodLauncher.jar";
+		String newPodLauncherFile = "http://podshot.github.io/PodLauncher/update/PodLauncher.jar";
 		if (canidateUpdate) {
 			newPodLauncherFile = "http://podshot.github.io/PodLauncher/update/canidate.jar";
 		}
@@ -79,9 +80,15 @@ public class Main {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		ArrayList<String> arguments = new ArrayList<String>();
+		arguments.add("java");
+		arguments.add("-jar");
+		arguments.add("PodLauncher.jar");
+		arguments.add("-updated");
 		
-		Runtime rt = Runtime.getRuntime();
-		rt.exec("java -jar PodLauncher.jar -updated");
+		ProcessBuilder pb = new ProcessBuilder(arguments);
+		pb.start();
+		
 		System.exit(0);
 	}
 }
